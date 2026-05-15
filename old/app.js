@@ -1,43 +1,3 @@
-
-const DISTRICTS = [
-  { label: "Porta della città (497|497) C44", coords: "497|497" },
-  { label: "Forca (498|497) C44", coords: "498|497" },
-  { label: "Forno (499|497) C44", coords: "499|497" },
-  { label: "Quartiere dei rilegatori (500|497) C45", coords: "500|497" },
-  { label: "Stamperia (501|497) C45", coords: "501|497" },
-  { label: "Monolito delle Banche (502|497) C45", coords: "502|497" },
-  { label: "Barbiere (497|498) C44", coords: "497|498" },
-  { label: "Negozio di pettini (498|498) C44", coords: "498|498" },
-  { label: "Usuraio (499|498) C44", coords: "499|498" },
-  { label: "Sartoria (500|498) C45", coords: "500|498" },
-  { label: "Fonderia (501|498) C45", coords: "501|498" },
-  { label: "Salone dei pittori (502|498) C45", coords: "502|498" },
-  { label: "Ospedale (497|499) C44", coords: "497|499" },
-  { label: "Merceria (498|499) C44", coords: "498|499" },
-  { label: "Pellicciaio (499|499) C44", coords: "499|499" },
-  { label: "Emporio della carta (500|499) C45", coords: "500|499" },
-  { label: "Ricami di seta (501|499) C45", coords: "501|499" },
-  { label: "Salone degli scultori (502|499) C45", coords: "502|499" },
-  { label: "Costruttore di tetti (497|500) C54", coords: "497|500" },
-  { label: "Artigiano di ruote (498|500) C54", coords: "498|500" },
-  { label: "Conceria (499|500) C54", coords: "499|500" },
-  { label: "Ingresso della Fognatura (500|500) C55", coords: "500|500" },
-  { label: "Trave (501|500) C55", coords: "501|500" },
-  { label: "Gilda dei Pescatori (502|500) C55", coords: "502|500" },
-  { label: "Vetraio (497|501) C54", coords: "497|501" },
-  { label: "Cordaio (498|501) C54", coords: "498|501" },
-  { label: "Fonderia campane (499|501) C54", coords: "499|501" },
-  { label: "Rifugio anti uragano (500|501) C55", coords: "500|501" },
-  { label: "Negozio di Erboristeria (501|501) C55", coords: "501|501" },
-  { label: "Mulino a vento (502|501) C55", coords: "502|501" },
-  { label: "Maniscalco (497|502) C54", coords: "497|502" },
-  { label: "Cavatore (498|502) C54", coords: "498|502" },
-  { label: "Muratore (499|502) C54", coords: "499|502" },
-  { label: "Torre osservazione del fiume (500|502) C55", coords: "500|502" },
-  { label: "Porto del commerciante (501|502) C55", coords: "501|502" },
-  { label: "Cantiere (502|502) C55", coords: "502|502" }
-];
-
 const UNITS = [
   { label: "Arieti", tag: "ram", travel: "07:21:11" },
   { label: "Spade", tag: "sword", travel: "05:23:32" },
@@ -111,18 +71,12 @@ function formatRange(startSeconds, endSeconds){
   return `${start} - ${secondsToHms(endSeconds)}`;
 }
 
-function buildOutput(offText, nobileText, districtCoords = ""){
+function buildOutput(offText, nobileText){
   const { startHms, endHms } = resolveTimes(offText, nobileText);
   const start = hmsToSeconds(startHms);
   const end = endHms ? hmsToSeconds(endHms) : null;
 
-  const lines = [];
-
-  if(districtCoords){
-    lines.push(districtCoords);
-  }
-
-  lines.push(`[b]Arrivo:  ${formatRange(start, end)}[/b]`);
+  const lines = [`[b]Arrivo:  ${formatRange(start, end)}[/b]`];
 
   for(const unit of UNITS){
     const travel = hmsToSeconds(unit.travel);
@@ -143,8 +97,7 @@ function calculate(){
   try{
     errorBox.hidden = true;
     errorBox.textContent = "";
-    const districtSelect = document.getElementById("districtSelect");
-    resultBox.value = buildOutput(offInput.value, nobileInput.value, districtSelect.value);
+    resultBox.value = buildOutput(offInput.value, nobileInput.value);
   }catch(err){
     resultBox.value = "";
     errorBox.textContent = err.message;
@@ -159,22 +112,7 @@ async function copyResult(){
   await navigator.clipboard.writeText(resultBox.value);
 }
 
-function populateDistricts(){
-  const districtSelect = document.getElementById("districtSelect");
-
-  for(const district of DISTRICTS){
-    const option = document.createElement("option");
-    option.value = district.coords;
-    option.textContent = district.label;
-    districtSelect.appendChild(option);
-  }
-}
-
-populateDistricts();
-
 document.getElementById("calcBtn").addEventListener("click", calculate);
 document.getElementById("copyBtn").addEventListener("click", copyResult);
 document.getElementById("offInput").addEventListener("input", calculate);
 document.getElementById("nobileInput").addEventListener("input", calculate);
-
-document.getElementById("districtSelect").addEventListener("change", calculate);
