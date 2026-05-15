@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Distretti, tool arrivi</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="wrap">
+    <header class="top">
+      <div>
+        <h1>DISTRETTI.xlsx</h1>
+        <p>Interfaccia web per GitHub Pages. Celle gialle input, celle verdi output.</p>
+      </div>
+      <div class="actions">
+        <button id="copyAll" type="button">Copia output</button>
+        <button id="reset" type="button">Reset</button>
+      </div>
+    </header>
+
+    <main class="sheetCard">
+      <div class="bar">
+        <span class="dot input"></span> input
+        <span class="dot output"></span> output
+      </div>
+
+      <div class="sheetScroller">
+        <table class="excel" aria-label="Foglio SINGOLO VILLO">
+          <thead>
+            <tr>
+              <th class="corner"></th>
+              <th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th><th>H</th><th>I</th><th>J</th>
+            </tr>
+          </thead>
+          <tbody id="sheetBody"></tbody>
+        </table>
+      </div>
+
+      <section class="outputs">
+        <h2>Output pronto da copiare</h2>
+        <textarea id="outText" readonly rows="8"></textarea>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

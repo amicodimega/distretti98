@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Calcolo distretti</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="wrap">
+    <section class="card">
+      <h1>Calcolo distretti</h1>
+      <p class="muted">Inserisci almeno un orario. Il risultato è pronto da copiare.</p>
+	<label for="offInput">Nobile nemico</label>
+	<textarea
+  id="offInput"
+  class="input yellow"
+  rows="3"
+  spellcheck="false"
+  autocomplete="off"
+  autocorrect="off"
+  autocapitalize="off"
+  placeholder="Incolla OFF..."
+	></textarea>
+
+	<label for="nobileInput">Nobile amico</label>
+	<input
+  id="nobileInput"
+  class="input yellow"
+  type="text"
+  value=""
+  spellcheck="false"
+  autocomplete="off"
+  autocorrect="off"
+  autocapitalize="off"
+  placeholder="Incolla Nobile..."
+	/>
+      <div class="actions">
+        <button id="calcBtn" type="button">Calcola</button>
+        <button id="copyBtn" type="button">Copia risultato</button>
+      </div>
+
+      <div id="errorBox" class="error" hidden></div>
+
+      <label for="resultBox">Risultato</label>
+      <textarea id="resultBox" class="output green" rows="8" readonly spellcheck="false"></textarea>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
